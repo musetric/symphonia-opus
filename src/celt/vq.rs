@@ -107,13 +107,13 @@ pub(super) const COLLAPSE_DEPTH_DECAY: f32 = 0.125;
 /// Evaluates `cos(pi / 2 * x)` in `f64` and rounds once to `f32`.
 #[inline]
 fn cos_quarter_turn(x: f32) -> f32 {
-    return nearest_f32((std::f64::consts::FRAC_PI_2 * f64::from(x)).cos());
+    return nearest_f32(libm::cos(std::f64::consts::FRAC_PI_2 * f64::from(x)));
 }
 
 /// Evaluates `2^x = e^(x ln 2)` in `f64` and rounds once to `f32`.
 #[inline]
 pub(super) fn exp2(x: f32) -> f32 {
-    return nearest_f32((std::f64::consts::LN_2 * f64::from(x)).exp());
+    return nearest_f32(libm::exp(std::f64::consts::LN_2 * f64::from(x)));
 }
 
 /// Fixed-point Q15 fractional multiplication `((16384 + (a as i16 as i32) * (b as i16 as i32)) >> 15)`

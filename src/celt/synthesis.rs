@@ -85,7 +85,7 @@ pub(crate) fn denormalise_bands(
         }
         let lg = (band_log_e[band] + E_MEANS[band]).min(32.0);
         // Base-2 exponential `2^lg = exp(ln(2) * lg)` of the log-domain band energy.
-        let gain = (std::f32::consts::LN_2 * lg).exp();
+        let gain = libm::expf(std::f32::consts::LN_2 * lg);
         for (dst, &src) in freq[j_start..band_end].iter_mut().zip(&norm_x[j_start..band_end]) {
             *dst = src * gain;
         }

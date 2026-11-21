@@ -18,6 +18,7 @@ include = ["src/**/*", "tests/**/*", "benches/**/*", "LICENSE", "README.md", "Ca
 rustdoc-args = ["--document-private-items"]
 
 [dependencies]
+libm = "0.2.16"
 log = "0.4"
 symphonia-core = "0.6.1"
 thiserror = "1"

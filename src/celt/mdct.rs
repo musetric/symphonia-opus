@@ -34,7 +34,7 @@ fn mdct_tables() -> &'static MdctTables {
         let fft_twiddles = std::array::from_fn(|k| {
             let phase = (-2.0 * std::f64::consts::PI * f64::from(u32::bounded_from(k)))
                 / f64::from(u32::bounded_from(MDCT_MAX_N4));
-            Complex32::new(nearest_f32(phase.cos()), nearest_f32(phase.sin()))
+            Complex32::new(nearest_f32(libm::cos(phase)), nearest_f32(libm::sin(phase)))
         });
 
         let mut bitrev = [[0u16; MDCT_MAX_N4]; 4];
@@ -49,7 +49,10 @@ fn mdct_tables() -> &'static MdctTables {
                 let angle =
                     (2.0 * std::f64::consts::PI * (f64::from(u32::bounded_from(i)) + 0.125))
                         / f64::from(u32::bounded_from(n));
-                *slot = Complex32::new(nearest_f32(angle.cos()), nearest_f32(-angle.sin()));
+                *slot = Complex32::new(
+                    nearest_f32(libm::cos(angle)),
+                    nearest_f32(-libm::sin(angle)),
+                );
             }
         }
 

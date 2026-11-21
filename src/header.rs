@@ -303,7 +303,7 @@ impl OutputGain {
     pub(crate) fn scale(self) -> Option<f32> {
         let gain_db = f64::from(self.0) / OUTPUT_GAIN_UNITS_PER_DB;
         return (self != Self::UNITY)
-            .then(|| nearest_f32(10.0_f64.powf(gain_db / DB_PER_AMPLITUDE_DECADE)));
+            .then(|| nearest_f32(libm::pow(10.0, gain_db / DB_PER_AMPLITUDE_DECADE)));
     }
 }
 
